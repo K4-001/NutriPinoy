@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriPinoy: Filipino Food Nutrition Guide</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="images\nutritional-pyramid.png">
+</head>
+<body>
+    <!-- Header / Navigation Bar -->
+    <header id="home">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-utensils"></i> NutriPinoy
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#gallery">Dishes</a></li>
+                <li><a href="#nutrition">Nutrition Facts</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact Me</a></li>
+            </ul>
+            <!-- Mobile Dropdown Menu -->
+            <div class="dropdown">
+                <button class="dropbtn" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i> Menu
+                </button>
+                <div class="dropdown-content" id="mobile-menu">
+                    <a href="#home">Home</a>
+                    <a href="#gallery">Dishes</a>
+                    <a href="#nutrition">Nutrition Facts</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact Me</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section with CTAs -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to NutriPinoy</h1>
+            <p class="hero-tagline">From flavor to facts — your guide to healthy Filipino eating.</p>
+            <p class="hero-description">Discover the nutritional value of your favorite Filipino dishes. Learn about ingredients, calories, and health considerations while celebrating our rich culinary culture.</p>
+            <div class="hero-cta">
+                <a href="#gallery" class="btn btn-primary">
+                    <i class="fas fa-utensils"></i> View Dishes
+                </a>
+                <a href="#nutrition" class="btn btn-secondary">
+                    <i class="fas fa-chart-pie"></i> Check Nutrition Facts
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Food Gallery Section -->
+    <section id="gallery" class="gallery">
+        <h2>Filipino Dishes Gallery</h2>
+        
+        <!-- Calorie Badge Legend -->
+        <div class="calorie-legend">
+            <p><strong>Calorie Guide:</strong></p>
+            <div class="legend-items">
+                <span class="legend-item">
+                    <span class="calorie-badge low">Low</span> 
+                    &lt; 300 kcal
+                </span>
+                <span class="legend-item">
+                    <span class="calorie-badge medium">Medium</span> 
+                    300-400 kcal
+                </span>
+                <span class="legend-item">
+                    <span class="calorie-badge high">High</span> 
+                    &gt; 400 kcal
+                </span>
+            </div>
+        </div>
+
+        <!-- Search and Filter Controls -->
+        <div class="filter-controls">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search dishes...">
+            </div>
+            <div class="filter-box">
+                <label for="calorie-filter">
+                    <i class="fas fa-filter"></i> Filter by Calories:
+                </label>
+                <select id="calorie-filter">
+                    <option value="all">All Dishes</option>
+                    <option value="low">Low (&lt; 300 kcal)</option>
+                    <option value="medium">Medium (300-400 kcal)</option>
+                    <option value="high">High (&gt; 400 kcal)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading-state" class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading delicious dishes...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-state" class="error-state hidden">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>Oops! We couldn't load the dishes. Please try refreshing the page.</p>
+        </div>
+
+        <!-- Dishes Grid (will be populated by JavaScript) -->
+        <div class="gallery-grid" id="dishes-container">
+            <!-- Dish cards will be dynamically generated here -->
+        </div>
+
+        <!-- No Results Message -->
+        <div id="no-results" class="no-results hidden">
+            <i class="fas fa-search"></i>
+            <p>No dishes found matching your criteria. Try a different search or filter!</p>
+        </div>
+    </section>
+
+    <!-- Nutrition Info Section -->
+    <section id="nutrition" class="nutrition-section">
+        <h2 id="nutrition-title">Select a Dish for Details</h2>
+        <p class="nutrition-subtitle">Click on any dish above to view its complete nutritional information, ingredients, and health considerations.</p>
+        <div id="dish-details" class="hidden">
+            <!-- Details will be populated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="about-container">
+            <h2>About NutriPinoy</h2>
+            <p>NutriPinoy is a web-based project that presents nutrition information for common Filipino dishes in a clear and accessible way. It helps users understand ingredients, estimated calories per serving, macronutrient content, and possible health considerations when certain foods are eaten frequently.</p>
+            <p>The project focuses on awareness and moderation rather than restriction, encouraging healthier choices while respecting Filipino food culture. NutriPinoy was developed as a portfolio project to demonstrate skills in web development, data organization, and user-centered design, with a structure built to support future API integration for dynamic and scalable nutrition data.</p>
+            <ul class="about-list">
+                <li>Highlights the nutrients and ingredients of Filipino meals.</li>
+                <li>Encourages healthy eating without giving up flavor.</li>
+                <li>Built with love for Pinoy food and student wellness.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>Have feedback or suggestions? Let me know below!</p>
+
+        <form action="#" method="post" class="contact-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">
+                <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>"Let's celebrate Filipino food the healthy way! NutriPinoy helps you enjoy our local dishes while staying mindful of nutrition and balance."</p>
+        <p>&copy; 2025 NutriPinoy. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
