@@ -1,0 +1,241 @@
+{
+  "adobo": {
+    "name": "Chicken Adobo",
+    "description": "Classic savory Filipino stew cooked with chicken, soy sauce, vinegar, garlic, and bay leaves. Known for its long shelf life and rich flavor, Adobo is a staple in many Filipino households.",
+    "ingredients": [
+      "Chicken (500g)",
+      "Soy sauce (1/4 cup)",
+      "Vinegar (1/4 cup)",
+      "Garlic (5 cloves)",
+      "Bay leaves (2)",
+      "Pepper"
+    ],
+    "nutrition": [
+      { "nutrient": "Calories", "value": "350 kcal" },
+      { "nutrient": "Protein", "value": "25g" },
+      { "nutrient": "Carbohydrates", "value": "10g" },
+      { "nutrient": "Fat", "value": "20g" },
+      { "nutrient": "Sodium", "value": "800mg" }
+    ],
+    "risks": [
+      "High sodium may raise blood pressure if eaten often",
+      "Moderate fat content when consumed in large portions"
+    ]
+  },
+
+  "sinigang": {
+    "name": "Shrimp Sinigang",
+    "description": "A sour and refreshing Filipino soup made with shrimp, tamarind, and a variety of vegetables.",
+    "ingredients": [
+      "Shrimp (300g)",
+      "Tamarind",
+      "Tomatoes",
+      "Radish",
+      "Kangkong",
+      "Onion"
+    ],
+    "nutrition": [
+      { "nutrient": "Calories", "value": "220 kcal" },
+      { "nutrient": "Protein", "value": "23g" },
+      { "nutrient": "Carbohydrates", "value": "14g" },
+      { "nutrient": "Fat", "value": "4g" },
+      { "nutrient": "Vitamin C", "value": "High" }
+    ],
+    "risks": [
+      "May be high in sodium if too much seasoning is added",
+      "Shrimp may trigger allergies for some individuals"
+    ]
+  },
+
+  "tinola": {
+    "name": "Chicken Tinola",
+    "description": "A light and comforting ginger-based chicken soup with green papaya and chili leaves, often eaten when feeling unwell.",
+    "ingredients": [
+      "Chicken (500g)",
+      "Ginger",
+      "Green papaya",
+      "Chili leaves",
+      "Garlic",
+      "Onion"
+    ],
+    "nutrition": [
+      { "nutrient": "Calories", "value": "260 kcal" },
+      { "nutrient": "Protein", "value": "26g" },
+      { "nutrient": "Carbohydrates", "value": "8g" },
+      { "nutrient": "Fat", "value": "9g" },
+      { "nutrient": "Sodium", "value": "500mg" }
+    ],
+    "risks": [
+      "Can become high in sodium with excessive fish sauce",
+      "Low calorie content may not be filling for some people"
+    ]
+  },
+
+  "kare-kare": {
+    "name": "Beef Kare-Kare",
+    "description": "A rich peanut-based stew traditionally made with beef and vegetables, usually paired with shrimp paste.",
+    "ingredients": [
+      "Beef",
+      "Peanut sauce",
+      "Eggplant",
+      "String beans",
+      "Banana heart",
+      "Bagoong"
+    ],
+    "nutrition": [
+      { "nutrient": "Calories", "value": "420 kcal" },
+      { "nutrient": "Protein", "value": "30g" },
+      { "nutrient": "Carbohydrates", "value": "15g" },
+      { "nutrient": "Fat", "value": "28g" },
+      { "nutrient": "Iron", "value": "High" }
+    ],
+    "risks": [
+      "High fat due to peanut sauce",
+      "Bagoong adds significant sodium"
+    ]
+  },
+
+  "pork-menudo": {
+    "name": "Pork Menudo",
+    "description": "A tomato-based Filipino pork stew with potatoes, carrots, and liver, commonly served during gatherings.",
+    "ingredients": [
+      "Pork",
+      "Tomato sauce",
+      "Potatoes",
+      "Carrots",
+      "Pork liver",
+      "Bell peppers"
+    ],
+    "nutrition": [
+      { "nutrient": "Calories", "value": "390 kcal" },
+      { "nutrient": "Protein", "value": "24g" },
+      { "nutrient": "Carbohydrates", "value": "18g" },
+      { "nutrient": "Fat", "value": "26g" },
+      { "nutrient": "Vitamin A", "value": "Moderate" }
+    ],
+    "risks": [
+      "High fat when made with fatty pork cuts",
+      "Processed tomato sauce may contain added sugar and sodium"
+    ]
+  },
+
+  "beef-caldereta": {
+    "name": "Beef Caldereta",
+    "description": "A hearty Filipino beef stew cooked in tomato sauce with vegetables and cheese.",
+    "ingredients": [
+      "Beef",
+      "Tomato sauce",
+      "Bell peppers",
+      "Potatoes",
+      "Cheese",
+      "Olives"
+    ],
+    "nutrition": [
+      { "nutrient": "Calories", "value": "450 kcal" },
+      { "nutrient": "Protein", "value": "32g" },
+      { "nutrient": "Carbohydrates", "value": "16g" },
+      { "nutrient": "Fat", "value": "30g" },
+      { "nutrient": "Calcium", "value": "Moderate" }
+    ],
+    "risks": [
+      "High saturated fat from cheese and beef",
+      "Calorie-dense when eaten in large servings"
+    ]
+  },
+
+  "pork-sisig": {
+    "name": "Pork Sisig",
+    "description": "A popular sizzling dish made from chopped pork, onions, calamansi, and chili.",
+    "ingredients": [
+      "Pork face",
+      "Onion",
+      "Calamansi",
+      "Chili",
+      "Soy sauce",
+      "Egg"
+    ],
+    "nutrition": [
+      { "nutrient": "Calories", "value": "520 kcal" },
+      { "nutrient": "Protein", "value": "29g" },
+      { "nutrient": "Carbohydrates", "value": "5g" },
+      { "nutrient": "Fat", "value": "40g" },
+      { "nutrient": "Cholesterol", "value": "High" }
+    ],
+    "risks": [
+      "Very high fat and cholesterol",
+      "Frequent intake may increase heart disease risk"
+    ]
+  },
+
+  "bicol-express": {
+    "name": "Bicol Express",
+    "description": "A spicy Filipino dish made with pork cooked in coconut milk and chili peppers.",
+    "ingredients": [
+      "Pork",
+      "Coconut milk",
+      "Chili peppers",
+      "Shrimp paste",
+      "Garlic",
+      "Onion"
+    ],
+    "nutrition": [
+      { "nutrient": "Calories", "value": "480 kcal" },
+      { "nutrient": "Protein", "value": "25g" },
+      { "nutrient": "Carbohydrates", "value": "10g" },
+      { "nutrient": "Fat", "value": "38g" },
+      { "nutrient": "Saturated Fat", "value": "High" }
+    ],
+    "risks": [
+      "High saturated fat from coconut milk",
+      "Very spicy, may irritate the stomach"
+    ]
+  },
+
+  "lumpiang-shanghai": {
+    "name": "Lumpiang Shanghai",
+    "description": "Crispy fried spring rolls filled with ground pork and vegetables, often served as an appetizer.",
+    "ingredients": [
+      "Ground pork",
+      "Carrots",
+      "Onion",
+      "Garlic",
+      "Spring roll wrappers",
+      "Oil"
+    ],
+    "nutrition": [
+      { "nutrient": "Calories", "value": "300 kcal" },
+      { "nutrient": "Protein", "value": "14g" },
+      { "nutrient": "Carbohydrates", "value": "18g" },
+      { "nutrient": "Fat", "value": "20g" },
+      { "nutrient": "Sodium", "value": "450mg" }
+    ],
+    "risks": [
+      "High fat due to deep frying",
+      "Easy to overeat because of small size"
+    ]
+  },
+
+  "pork-humba": {
+    "name": "Pork Humba",
+    "description": "A sweet and savory Filipino braised pork dish made with soy sauce, vinegar, and banana blossoms.",
+    "ingredients": [
+      "Pork belly",
+      "Soy sauce",
+      "Vinegar",
+      "Brown sugar",
+      "Banana blossoms",
+      "Garlic"
+    ],
+    "nutrition": [
+      { "nutrient": "Calories", "value": "510 kcal" },
+      { "nutrient": "Protein", "value": "27g" },
+      { "nutrient": "Carbohydrates", "value": "20g" },
+      { "nutrient": "Fat", "value": "36g" },
+      { "nutrient": "Sugar", "value": "Moderate" }
+    ],
+    "risks": [
+      "High fat due to pork belly",
+      "Added sugar may affect blood sugar levels"
+    ]
+  }
+}
