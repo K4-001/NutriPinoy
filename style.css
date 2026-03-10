@@ -104,71 +104,54 @@ header {
     margin-right: 10px; 
 }
 
-/* Desktop Navigation Menu */
-.nav-menu { 
-    list-style-type: none; 
-    display: flex; 
-    gap: 5px;
-    margin: 0;
-    padding: 0;
+/* Nav right group: hamburger + auth buttons */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row-reverse;
 }
 
-.nav-menu li { 
-    display: inline-block; 
-    padding: 0 15px;
-}
+/* ===================================
+   HAMBURGER DROPDOWN
+   =================================== */
 
-.nav-menu li + li { 
-    border-left: 2px solid var(--primary-yellow); 
-}
-
-.nav-menu a {
-    color: var(--primary-yellow);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.nav-menu a:hover {
-    color: var(--white);
-    text-decoration: underline;
-}
-
-/* Mobile Dropdown Menu */
 .dropdown { 
     position: relative; 
-    display: none; /* Hidden by default, shown on mobile */
+    display: inline-block;
 }
 
 .dropbtn {
-    background-color: var(--secondary-green);
+    background-color: transparent;
     color: var(--primary-yellow);
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+    padding: 8px 12px;
+    border: 2px solid var(--primary-yellow);
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1.05em;
     font-weight: bold;
     transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .dropbtn:hover {
-    background-color: var(--light-green);
-}
-
-.dropbtn i { 
-    margin-right: 5px; 
+    background-color: rgba(255, 215, 0, 0.15);
 }
 
 .dropdown-content { 
     position: absolute; 
     right: 0;
+    top: calc(100% + 8px);
     background-color: var(--secondary-green);
     min-width: 200px; 
     box-shadow: 0px 8px 16px rgba(0,0,0,0.3); 
     z-index: 1001; 
     display: none;
-    border-radius: 5px;
+    border-radius: 8px;
     overflow: hidden;
+    border: 1px solid rgba(255,215,0,0.2);
 }
 
 .dropdown-content.show {
@@ -177,14 +160,202 @@ header {
 
 .dropdown-content a { 
     color: var(--white); 
-    padding: 12px 16px; 
+    padding: 13px 18px; 
     text-decoration: none; 
     display: block;
-    transition: background-color 0.3s ease;
+    font-weight: 500;
+    transition: background-color 0.2s ease, padding-left 0.2s ease;
+    border-left: 3px solid transparent;
 }
 
 .dropdown-content a:hover { 
     background-color: var(--light-green);
+    padding-left: 24px;
+    border-left-color: var(--primary-yellow);
+}
+
+/* ===================================
+   AUTH BUTTONS
+   =================================== */
+
+.btn-login {
+    background: transparent;
+    border: 2px solid var(--primary-yellow);
+    color: var(--primary-yellow);
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-login:hover {
+    background: rgba(255, 215, 0, 0.15);
+}
+
+.btn-signup {
+    background: var(--primary-yellow);
+    border: 2px solid var(--primary-yellow);
+    color: var(--dark-green);
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-signup:hover {
+    background: #ffe033;
+    border-color: #ffe033;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+/* ===================================
+   AUTH MODALS
+   =================================== */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    background: #fff;
+    border-radius: 14px;
+    padding: 2.5rem 2.5rem 2rem;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    animation: modalPop 0.25s ease;
+    margin: 20px;
+}
+
+@keyframes modalPop {
+    from { transform: scale(0.92); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+}
+
+.modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: #aaa;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.modal-close:hover { color: var(--primary-green); }
+
+.modal-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-green);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.modal h2 {
+    font-family: 'Georgia', serif;
+    color: var(--primary-green);
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+    text-align: left;
+    text-transform: none;
+}
+
+.modal-sub {
+    color: #888;
+    font-size: 0.88rem;
+    margin-bottom: 1.4rem;
+    text-align: left;
+}
+
+.modal label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--primary-green);
+    margin-bottom: 5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.modal input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    background: #fff;
+    transition: border-color 0.2s;
+    outline: none;
+    color: #333;
+}
+
+.modal input:focus {
+    border-color: var(--primary-green);
+}
+
+.modal-submit {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-green);
+    color: var(--primary-yellow);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    margin-top: 4px;
+    transition: background 0.2s;
+}
+
+.modal-submit:hover {
+    background: var(--dark-green);
+}
+
+.modal-switch {
+    text-align: center;
+    margin-top: 14px;
+    font-size: 0.87rem;
+    color: #888;
+}
+
+.modal-switch a {
+    color: var(--primary-green);
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 /* ===================================
@@ -239,7 +410,6 @@ header {
     line-height: 1.6;
 }
 
-/* Hero Call-to-Action Buttons */
 .hero-cta {
     display: flex;
     gap: 20px;
@@ -303,7 +473,6 @@ header {
     margin-bottom: 30px;
 }
 
-/* Calorie Badge Legend */
 .calorie-legend {
     background-color: var(--light-gray);
     border: 2px solid var(--border-gray);
@@ -336,7 +505,6 @@ header {
     color: var(--text-light);
 }
 
-/* Calorie Badges */
 .calorie-badge {
     display: inline-block;
     padding: 5px 12px;
@@ -362,7 +530,6 @@ header {
     color: var(--white);
 }
 
-/* Search and Filter Controls */
 .filter-controls {
     display: flex;
     justify-content: center;
@@ -429,7 +596,6 @@ header {
     border-color: var(--primary-green);
 }
 
-/* Loading State */
 .loading-state {
     text-align: center;
     padding: 60px 20px;
@@ -460,7 +626,6 @@ header {
     text-align: center;
 }
 
-/* Error State */
 .error-state {
     text-align: center;
     padding: 60px 20px;
@@ -482,7 +647,6 @@ header {
     text-align: center;
 }
 
-/* No Results State */
 .no-results {
     text-align: center;
     padding: 60px 20px;
@@ -504,7 +668,6 @@ header {
     text-align: center;
 }
 
-/* Gallery Grid */
 .gallery-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -514,7 +677,6 @@ header {
     padding: 0 20px;
 }
 
-/* Dish Cards */
 .dish-card { 
     background-color: var(--white);
     border: 2px solid var(--border-gray);
@@ -582,7 +744,6 @@ header {
     margin-bottom: 40px;
 }
 
-/* Dish Details Container */
 #dish-details {
     max-width: 1100px;
     margin: 0 auto;
@@ -643,7 +804,6 @@ header {
     margin-bottom: 20px;
 }
 
-/* Ingredients List */
 .ingredients-list {
     list-style: none;
     padding: 0;
@@ -665,7 +825,6 @@ header {
     margin-right: 8px;
 }
 
-/* Nutrition Table */
 .nutrition-table { 
     width: 100%; 
     border-collapse: collapse;
@@ -694,7 +853,6 @@ header {
     background-color: var(--medium-gray);
 }
 
-/* Health Considerations */
 .health-risk { 
     color: var(--text-dark);
     border: 2px solid var(--danger-red);
@@ -756,8 +914,7 @@ header {
 }
 
 .about-list li:first-child { 
-    font-weight: bold;
-    color: var(--primary-green);
+    color: var(--text-dark);
 }
 
 /* ===================================
@@ -882,7 +1039,6 @@ footer p:first-child {
     padding: 0 20px;
 }
 
-/* Focus Styles for Accessibility */
 a:focus, 
 input:focus, 
 button:focus,
@@ -897,27 +1053,67 @@ a:focus-visible {
 }
 
 /* ===================================
-   RESPONSIVE DESIGN - MEDIA QUERIES
+   RESPONSIVE DESIGN
    =================================== */
 
-/* Tablet and below */
-@media (max-width: 768px) {
-    /* Show mobile menu, hide desktop menu */
-    .nav-menu {
-        display: none;
-    }
-    
-    .dropdown {
-        display: inline-block;
+@media (max-width: 480px) {
+    .btn-login,
+    .btn-signup {
+        padding: 7px 12px;
+        font-size: 0.82rem;
     }
 
-    /* Adjust navbar */
     .navbar {
-        flex-direction: row;
-        padding: 15px 20px;
+        padding: 12px 15px;
     }
 
-    /* Hero section */
+    .nav-brand {
+        font-size: 1.2em;
+    }
+
+    .gallery-grid { 
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .hero {
+        padding: 40px 15px;
+    }
+
+    .hero::before {
+        font-size: 2.5em;
+    }
+
+    section {
+        padding: 40px 15px;
+    }
+
+    #dish-details {
+        padding: 20px;
+    }
+
+    body { 
+        font-size: 14px; 
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+
+    .contact-form {
+        padding: 0 10px;
+    }
+
+    .modal {
+        padding: 2rem 1.5rem 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
     .hero {
         padding: 60px 20px;
     }
@@ -937,13 +1133,11 @@ a:focus-visible {
         margin: 0 auto;
     }
 
-    /* Gallery grid */
     .gallery-grid { 
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
 
-    /* Filter controls */
     .filter-controls {
         flex-direction: column;
         gap: 15px;
@@ -962,13 +1156,11 @@ a:focus-visible {
         width: 100%;
     }
 
-    /* Calorie legend */
     .legend-items {
         flex-direction: column;
         gap: 10px;
     }
 
-    /* Dish details layout */
     .dish-details-layout {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -978,7 +1170,6 @@ a:focus-visible {
         padding: 25px;
     }
 
-    /* Typography */
     h1 { 
         font-size: 2em; 
     }
@@ -992,61 +1183,6 @@ a:focus-visible {
     }
 }
 
-/* Mobile phones */
-@media (max-width: 480px) {
-    /* Gallery grid - single column */
-    .gallery-grid { 
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    /* Navbar */
-    .navbar {
-        padding: 12px 15px;
-    }
-
-    .nav-brand {
-        font-size: 1.2em;
-    }
-
-    /* Hero */
-    .hero {
-        padding: 40px 15px;
-    }
-
-    .hero::before {
-        font-size: 2.5em;
-    }
-
-    /* Sections */
-    section {
-        padding: 40px 15px;
-    }
-
-    #dish-details {
-        padding: 20px;
-    }
-
-    /* Typography */
-    body { 
-        font-size: 14px; 
-    }
-
-    h1 {
-        font-size: 1.8em;
-    }
-
-    h2 {
-        font-size: 1.3em;
-    }
-
-    /* Contact form */
-    .contact-form {
-        padding: 0 10px;
-    }
-}
-
-/* Large screens */
 @media (min-width: 1400px) {
     .gallery-grid {
         grid-template-columns: repeat(5, 1fr);
