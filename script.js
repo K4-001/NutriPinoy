@@ -1,23 +1,10 @@
-// ===================================
-// DATA SERVICE LAYER (API-Ready Architecture)
-// ===================================
-
-/**
- * DataService handles all data fetching operations.
- * This abstraction makes it easy to switch between local JSON and external API.
- */
 const DataService = {
-    // Configuration
     config: {
-        useAPI: false, // Set to true when ready to use external API
-        apiEndpoint: 'https://api.example.com/dishes', // Future API endpoint
+        useAPI: false,
+        apiEndpoint: 'https://api.example.com/dishes',
         localDataPath: 'data/dishes.json'
     },
 
-    /**
-     * Fetch dishes data from configured source
-     * @returns {Promise<Object>} Dishes data object
-     */
     async fetchDishes() {
         try {
             if (this.config.useAPI) {
@@ -31,10 +18,6 @@ const DataService = {
         }
     },
 
-    /**
-     * Fetch from local JSON file
-     * @returns {Promise<Object>} Dishes data
-     */
     async fetchFromLocal() {
         const response = await fetch(this.config.localDataPath);
         if (!response.ok) {
@@ -43,43 +26,29 @@ const DataService = {
         return await response.json();
     },
 
-    /**
-     * Fetch from external API (future implementation)
-     * @returns {Promise<Object>} Dishes data
-     */
     async fetchFromAPI() {
         const response = await fetch(this.config.apiEndpoint, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: { 'Content-Type': 'application/json' }
         });
-        
         if (!response.ok) {
             throw new Error(`API error! status: ${response.status}`);
         }
-        
-        const data = await response.json();
-        return data;
+        return await response.json();
     }
 };
 
 // ===================================
-// GLOBAL STATE MANAGEMENT
+// GLOBAL STATE
 // ===================================
 
-let dishesData = {}; // Stores all dishes data
-let filteredDishes = {}; // Stores filtered dishes for search/filter
+let dishesData = {};
+let filteredDishes = {};
 
 // ===================================
 // UTILITY FUNCTIONS
 // ===================================
 
-/**
- * Get calorie value from dish nutrition data
- * @param {Object} dish - Dish object
- * @returns {number} Calorie value
- */
 function getCalorieValue(dish) {
     const calorieItem = dish.nutrition.find(item => item.nutrient === 'Calories');
     if (calorieItem) {
@@ -88,22 +57,12 @@ function getCalorieValue(dish) {
     return 0;
 }
 
-/**
- * Get calorie category (low/medium/high)
- * @param {number} calories - Calorie value
- * @returns {string} Category name
- */
 function getCalorieCategory(calories) {
     if (calories < 300) return 'low';
     if (calories <= 400) return 'medium';
     return 'high';
 }
 
-/**
- * Show/hide elements by adding/removing 'hidden' class
- * @param {string} elementId - Element ID
- * @param {boolean} show - Show or hide
- */
 function toggleElement(elementId, show) {
     const element = document.getElementById(elementId);
     if (element) {
@@ -116,28 +75,19 @@ function toggleElement(elementId, show) {
 }
 
 // ===================================
-// UI RENDERING FUNCTIONS
+// UI RENDERING
 // ===================================
 
-/**
- * Create and render a single dish card
- * @param {string} dishKey - Dish key/ID
- * @param {Object} dish - Dish data object
- * @returns {HTMLElement} Dish card element
- */
 function createDishCard(dishKey, dish) {
     const calories = getCalorieValue(dish);
     const calorieCategory = getCalorieCategory(calories);
-    
+
     const card = document.createElement('div');
     card.className = 'dish-card';
     card.dataset.dish = dishKey;
     card.dataset.calories = calories;
     card.dataset.name = dish.name.toLowerCase();
-    
-    // Construct image path (convert backslashes to forward slashes if needed)
-    const imagePath = `images/${dishKey}.jpg`; // You'll need to rename images to match dish keys
-    
+
     card.innerHTML = `
         <img src="${getImagePath(dishKey)}" alt="${dish.name}" onerror="this.src='images/placeholder.jpg'">
         <div class="dish-card-content">
@@ -146,21 +96,15 @@ function createDishCard(dishKey, dish) {
             <span class="calorie-badge ${calorieCategory}">${calorieCategory}</span>
         </div>
     `;
-    
-    // Add click event listener
+
     card.addEventListener('click', () => {
         showDishDetails(dishKey);
         scrollToNutrition();
     });
-    
+
     return card;
 }
 
-/**
- * Get correct image path for a dish
- * @param {string} dishKey - Dish key
- * @returns {string} Image path
- */
 function getImagePath(dishKey) {
     const imageMap = {
         'adobo': 'images/Filipino Chicken Adobo.jpg',
@@ -174,81 +118,59 @@ function getImagePath(dishKey) {
         'lumpiang-shanghai': 'images/Lumpia Shanghai (Filipino Spring Rolls) (1).jpg',
         'pork-humba': 'images/Delight in the rich, comforting flavors of our….jpg'
     };
-    
     return imageMap[dishKey] || 'images/placeholder.jpg';
 }
 
-/**
- * Render all dish cards to the gallery
- * @param {Object} dishes - Dishes data object
- */
 function renderDishCards(dishes) {
     const container = document.getElementById('dishes-container');
-    container.innerHTML = ''; // Clear existing cards
-    
+    container.innerHTML = '';
+
     const dishKeys = Object.keys(dishes);
-    
+
     if (dishKeys.length === 0) {
         toggleElement('no-results', true);
         return;
     }
-    
+
     toggleElement('no-results', false);
-    
+
     dishKeys.forEach(dishKey => {
         const card = createDishCard(dishKey, dishes[dishKey]);
         container.appendChild(card);
     });
 }
 
-/**
- * Show detailed information for a selected dish
- * @param {string} dishKey - Dish key/ID
- */
 function showDishDetails(dishKey) {
     const dish = dishesData[dishKey];
-    
     if (!dish) {
         console.error('No dish data found for key:', dishKey);
         return;
     }
-    
-    console.log('Showing details for:', dish.name);
-    
-    // Update title
+
     const titleElement = document.getElementById('nutrition-title');
     titleElement.textContent = `${dish.name} - Nutritional Information`;
-    
-    // Build ingredients list
+
     const ingredientsHtml = `
         <h4>Ingredients</h4>
         <ul class="ingredients-list">
             ${dish.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
         </ul>
     `;
-    
-    // Build nutrition table
+
     const nutritionHtml = `
         <h4>Nutrition Facts (per serving)</h4>
         <table class="nutrition-table">
             <thead>
-                <tr>
-                    <th>Nutrient</th>
-                    <th>Value</th>
-                </tr>
+                <tr><th>Nutrient</th><th>Value</th></tr>
             </thead>
             <tbody>
                 ${dish.nutrition.map(nut => `
-                    <tr>
-                        <td>${nut.nutrient}</td>
-                        <td>${nut.value}</td>
-                    </tr>
+                    <tr><td>${nut.nutrient}</td><td>${nut.value}</td></tr>
                 `).join('')}
             </tbody>
         </table>
     `;
-    
-    // Build health risks/considerations
+
     const risksHtml = `
         <div class="health-risk">
             <h4>Health Considerations (When Eaten Often)</h4>
@@ -257,12 +179,10 @@ function showDishDetails(dishKey) {
             </ul>
         </div>
     `;
-    
-    // Get calorie info for badge
+
     const calories = getCalorieValue(dish);
     const calorieCategory = getCalorieCategory(calories);
-    
-    // Build complete details HTML with two-column layout
+
     const detailsHtml = `
         <h3>${dish.name} <span class="calorie-badge ${calorieCategory}">${calories} kcal</span></h3>
         <div class="dish-details-layout">
@@ -277,117 +197,89 @@ function showDishDetails(dishKey) {
             </div>
         </div>
     `;
-    
-    // Display the details
+
     const detailsDiv = document.getElementById('dish-details');
     detailsDiv.innerHTML = detailsHtml;
     detailsDiv.classList.remove('hidden');
 }
 
-/**
- * Scroll smoothly to nutrition section
- */
 function scrollToNutrition() {
     const nutritionSection = document.getElementById('nutrition');
     if (nutritionSection) {
-        nutritionSection.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-        });
+        nutritionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
 
 // ===================================
-// SEARCH AND FILTER FUNCTIONS
+// SEARCH & FILTER
 // ===================================
 
-/**
- * Filter dishes based on search query and calorie filter
- */
 function applyFilters() {
     const searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
     const calorieFilter = document.getElementById('calorie-filter').value;
-    
+
     let filtered = { ...dishesData };
-    
-    // Apply search filter
+
     if (searchQuery) {
         filtered = Object.keys(filtered).reduce((result, key) => {
             const dish = filtered[key];
-            if (dish.name.toLowerCase().includes(searchQuery) || 
+            if (dish.name.toLowerCase().includes(searchQuery) ||
                 dish.description.toLowerCase().includes(searchQuery)) {
                 result[key] = dish;
             }
             return result;
         }, {});
     }
-    
-    // Apply calorie filter
+
     if (calorieFilter !== 'all') {
         filtered = Object.keys(filtered).reduce((result, key) => {
             const dish = filtered[key];
             const calories = getCalorieValue(dish);
             const category = getCalorieCategory(calories);
-            
             if (category === calorieFilter) {
                 result[key] = dish;
             }
             return result;
         }, {});
     }
-    
+
     filteredDishes = filtered;
     renderDishCards(filtered);
 }
 
-/**
- * Setup search and filter event listeners
- */
 function setupSearchAndFilter() {
     const searchInput = document.getElementById('search-input');
     const calorieFilter = document.getElementById('calorie-filter');
-    
-    // Search input - debounced for performance
+
     let searchTimeout;
     searchInput.addEventListener('input', () => {
         clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-            applyFilters();
-        }, 300); // Wait 300ms after user stops typing
+        searchTimeout = setTimeout(() => { applyFilters(); }, 300);
     });
-    
-    // Calorie filter dropdown
-    calorieFilter.addEventListener('change', () => {
-        applyFilters();
-    });
+
+    calorieFilter.addEventListener('change', () => { applyFilters(); });
 }
 
 // ===================================
-// MOBILE MENU HANDLER
+// MOBILE MENU
 // ===================================
 
-/**
- * Setup mobile dropdown menu toggle
- */
 function setupMobileMenu() {
     const menuBtn = document.getElementById('mobile-menu-btn');
     const menuContent = document.getElementById('mobile-menu');
     const menuLinks = menuContent.querySelectorAll('a');
-    
-    // Toggle menu on button click
+
     menuBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         menuContent.classList.toggle('show');
     });
-    
-    // Close menu when clicking a link
+
     menuLinks.forEach(link => {
         link.addEventListener('click', () => {
             menuContent.classList.remove('show');
         });
     });
-    
-    // Close menu when clicking outside
+
     document.addEventListener('click', (e) => {
         if (!menuBtn.contains(e.target) && !menuContent.contains(e.target)) {
             menuContent.classList.remove('show');
@@ -396,12 +288,9 @@ function setupMobileMenu() {
 }
 
 // ===================================
-// LOADING AND ERROR HANDLING
+// LOADING / ERROR STATES
 // ===================================
 
-/**
- * Show loading state
- */
 function showLoading() {
     toggleElement('loading-state', true);
     toggleElement('dishes-container', false);
@@ -409,18 +298,11 @@ function showLoading() {
     toggleElement('no-results', false);
 }
 
-/**
- * Hide loading state
- */
 function hideLoading() {
     toggleElement('loading-state', false);
     toggleElement('dishes-container', true);
 }
 
-/**
- * Show error state
- * @param {Error} error - Error object
- */
 function showError(error) {
     console.error('Error displaying dishes:', error);
     toggleElement('loading-state', false);
@@ -432,85 +314,116 @@ function showError(error) {
 // INITIALIZATION
 // ===================================
 
-/**
- * Initialize the application
- */
 async function initializeApp() {
     console.log('NutriPinoy App Initializing...');
-    
-    // Show loading state
     showLoading();
-    
+
     try {
-        // Fetch dishes data using DataService
         dishesData = await DataService.fetchDishes();
         filteredDishes = { ...dishesData };
-        
-        console.log('Dishes loaded successfully:', Object.keys(dishesData).length, 'dishes');
-        
-        // Hide loading and render dishes
+        console.log('Dishes loaded:', Object.keys(dishesData).length, 'dishes');
+
         hideLoading();
         renderDishCards(dishesData);
-        
-        // Setup search and filter functionality
         setupSearchAndFilter();
-        
-        // Setup mobile menu
         setupMobileMenu();
-        
+        setupAuthModals();
+
         console.log('NutriPinoy App Ready!');
-        
     } catch (error) {
-        // Show error state
         showError(error);
     }
 }
 
-// ===================================
-// EVENT LISTENERS
-// ===================================
-
-/**
- * Wait for DOM to be fully loaded before initializing
- */
 document.addEventListener('DOMContentLoaded', () => {
     initializeApp();
 });
 
-// ===================================
-// SMOOTH SCROLLING FOR CTA BUTTONS
-// ===================================
-
-/**
- * Add smooth scrolling to all anchor links
- */
+// Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
-        
-        // Only prevent default for internal links
         if (href !== '#') {
             e.preventDefault();
             const target = document.querySelector(href);
-            
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
     });
 });
 
 // ===================================
-// EXPORTS FOR TESTING (Optional)
+// AUTH MODALS
 // ===================================
 
-// If you want to test functions in browser console, uncomment:
-// window.NutriPinoy = {
-//     DataService,
-//     showDishDetails,
-//     applyFilters,
-//     dishesData
-// };
+function setupAuthModals() {
+    // Open modals
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        document.getElementById('loginModal').classList.add('active');
+    });
+
+    document.getElementById('signupBtn').addEventListener('click', () => {
+        document.getElementById('signupModal').classList.add('active');
+    });
+
+    // Login submit
+    document.querySelector('#loginModal .modal-submit').addEventListener('click', () => {
+        const email = document.querySelector('#loginModal input[type="email"]').value.trim();
+        const password = document.querySelector('#loginModal input[type="password"]').value.trim();
+
+        if (!email || !password) {
+            alert('Please fill in all fields.');
+            return;
+        }
+
+        // TODO: Replace with real API call when connecting a database
+        // fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) })
+
+        closeModal('loginModal');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Sign up submit
+    document.querySelector('#signupModal .modal-submit').addEventListener('click', () => {
+        const name = document.querySelector('#signupModal input[type="text"]').value.trim();
+        const email = document.querySelector('#signupModal input[type="email"]').value.trim();
+        const password = document.querySelector('#signupModal input[type="password"]').value.trim();
+
+        if (!name || !email || !password) {
+            alert('Please fill in all fields.');
+            return;
+        }
+
+        // TODO: Replace with real API call when connecting a database
+        // fetch('/api/signup', { method: 'POST', body: JSON.stringify({ name, email, password }) })
+
+        closeModal('signupModal');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Close on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) overlay.classList.remove('active');
+        });
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+        }
+    });
+}
+
+// Called by modal close buttons (inline onclick in HTML)
+function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+}
+
+// Called by switch links inside modals
+function switchModal(closeId, openId) {     
+    closeModal(closeId);
+    document.getElementById(openId).classList.add('active');
+}
