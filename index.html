@@ -15,28 +15,63 @@
             <div class="nav-brand">
                 <i class="fas fa-utensils"></i> NutriPinoy
             </div>
-            <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#gallery">Dishes</a></li>
-                <li><a href="#nutrition">Nutrition Facts</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact Me</a></li>
-            </ul>
-            <!-- Mobile Dropdown Menu -->
-            <div class="dropdown">
-                <button class="dropbtn" id="mobile-menu-btn">
-                    <i class="fas fa-bars"></i> Menu
-                </button>
-                <div class="dropdown-content" id="mobile-menu">
-                    <a href="#home">Home</a>
-                    <a href="#gallery">Dishes</a>
-                    <a href="#nutrition">Nutrition Facts</a>
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact Me</a>
+
+            <!-- Right side: hamburger + auth buttons -->
+            <div class="nav-right">
+                <!-- Hamburger Dropdown -->
+                <div class="dropdown">
+                    <button class="dropbtn" id="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="dropdown-content" id="mobile-menu">
+                        <a href="#home">Home</a>
+                        <a href="#gallery">Dishes</a>
+                        <a href="#nutrition">Nutrition Facts</a>
+                        <a href="#about">About</a>
+                        <a href="#contact">Contact Me</a>
+                    </div>
                 </div>
+
+                <!-- Auth Buttons -->
+                <button class="btn-login" id="loginBtn">Log In</button>
+                <button class="btn-signup" id="signupBtn">Sign Up</button>
             </div>
         </nav>
     </header>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('loginModal')">&#x2715;</button>
+            <div class="modal-logo"><i class="fas fa-utensils"></i> NutriPinoy</div>
+            <h2>Welcome Back</h2>
+            <p class="modal-sub">Log in to your NutriPinoy account</p>
+            <label>Email</label>
+            <input type="email" placeholder="you@email.com">
+            <label>Password</label>
+            <input type="password" placeholder="••••••••">
+            <button class="modal-submit">Log In</button>
+            <div class="modal-switch">Don't have an account? <a onclick="switchModal('loginModal','signupModal')">Sign up</a></div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('signupModal')">&#x2715;</button>
+            <div class="modal-logo"><i class="fas fa-utensils"></i> NutriPinoy</div>
+            <h2>Create Account</h2>
+            <p class="modal-sub">Join NutriPinoy and explore Filipino nutrition</p>
+            <label>Full Name</label>
+            <input type="text" placeholder="Juan dela Cruz">
+            <label>Email</label>
+            <input type="email" placeholder="you@email.com">
+            <label>Password</label>
+            <input type="password" placeholder="Create a password">
+            <button class="modal-submit">Create Account</button>
+            <div class="modal-switch">Already have an account? <a onclick="switchModal('signupModal','loginModal')">Log in</a></div>
+        </div>
+    </div>
 
     <!-- Hero Section with CTAs -->
     <section id="home" class="hero">
@@ -59,7 +94,6 @@
     <section id="gallery" class="gallery">
         <h2>Filipino Dishes Gallery</h2>
         
-        <!-- Calorie Badge Legend -->
         <div class="calorie-legend">
             <p><strong>Calorie Guide:</strong></p>
             <div class="legend-items">
@@ -78,7 +112,6 @@
             </div>
         </div>
 
-        <!-- Search and Filter Controls -->
         <div class="filter-controls">
             <div class="search-box">
                 <i class="fas fa-search"></i>
@@ -97,24 +130,18 @@
             </div>
         </div>
 
-        <!-- Loading State -->
         <div id="loading-state" class="loading-state">
             <div class="spinner"></div>
             <p>Loading delicious dishes...</p>
         </div>
 
-        <!-- Error State -->
         <div id="error-state" class="error-state hidden">
             <i class="fas fa-exclamation-triangle"></i>
             <p>Oops! We couldn't load the dishes. Please try refreshing the page.</p>
         </div>
 
-        <!-- Dishes Grid (will be populated by JavaScript) -->
-        <div class="gallery-grid" id="dishes-container">
-            <!-- Dish cards will be dynamically generated here -->
-        </div>
+        <div class="gallery-grid" id="dishes-container"></div>
 
-        <!-- No Results Message -->
         <div id="no-results" class="no-results hidden">
             <i class="fas fa-search"></i>
             <p>No dishes found matching your criteria. Try a different search or filter!</p>
@@ -125,9 +152,7 @@
     <section id="nutrition" class="nutrition-section">
         <h2 id="nutrition-title">Select a Dish for Details</h2>
         <p class="nutrition-subtitle">Click on any dish above to view its complete nutritional information, ingredients, and health considerations.</p>
-        <div id="dish-details" class="hidden">
-            <!-- Details will be populated by JavaScript -->
-        </div>
+        <div id="dish-details" class="hidden"></div>
     </section>
 
     <!-- About Section -->
@@ -148,17 +173,13 @@
     <section id="contact">
         <h2>Contact Me</h2>
         <p>Have feedback or suggestions? Let me know below!</p>
-
         <form action="https://formspree.io/f/xqedgqjl" method="post" class="contact-form">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
-
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-
             <label for="message">Message:</label>
             <textarea id="message" name="message" rows="4" required></textarea>
-
             <button type="submit">
                 <i class="fas fa-paper-plane"></i> Send Message
             </button>
@@ -173,5 +194,4 @@
 
     <script src="script.js"></script>
 </body>
-
 </html>
